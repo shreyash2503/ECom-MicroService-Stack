@@ -1,0 +1,73 @@
+services:
+  postgres:
+    container_name: ms_pg_sql
+    image: postgres
+    environment:
+      POSTGRES_USER: yash
+      POSTGRES_PASSWORD: yash1234
+      PGDATA: /var/lib/postgresql/data
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - microservices-net
+    restart: unless-stopped
+
+  pgadmin:
+    container_name: ms_pgadmin
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL:  ${PGADMIN_DEFAULT_EMAIL:-pgadmin@pgadmin.org}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
+      PGADMIN_CONFIG_SERVER: 'False'
+    volumes:
+      - pgadmin:/var/lib/pgadmin
+    ports:
+      - "6371:80"
+    networks:
+      - microservices-net
+    restart: unless-stopped
+
+  mongodb:
+    container_name: ms_mongo_db
+    image: mongo
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: yash
+      MONGO_INITDB_ROOT_PASSWORD: yash1234
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo:/data
+
+  mongo-express:
+    container_name: ms_mongo_express
+    image: mongo-express
+    environment:
+      - ME_CONFIG_MONGODB_ADMINUSERNAME: yash
+      - ME_CONFIG_MONGODB_ADMINPASSWORD: yash1234
+      - ME_CONFIG_MONGODB_SERVER: mongodb
+    restart: always
+    ports:
+      - "8081:8081"
+    networks:
+      - microservices-net
+
+  mail-dev:
+    container_name: ms_mail_dev
+    image: maildev/maildev
+    ports:
+      - "1080:1080"
+      - "1025:1025"
+    networks:
+      - microservices-net
+
+
+networks:
+  microservices-net:
+    driver: bridge
+
+volumes:
+  postgres:
+  pgadmin:
+  mongo:
