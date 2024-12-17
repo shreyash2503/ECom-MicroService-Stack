@@ -1,6 +1,5 @@
 package com.microservice.ecommerce.customer;
 
-import ch.qos.logback.core.util.StringUtil;
 import com.microservice.ecommerce.exceptions.CustomerNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang.StringUtils;

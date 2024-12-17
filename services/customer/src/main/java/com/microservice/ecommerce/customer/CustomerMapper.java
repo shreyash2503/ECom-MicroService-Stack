@@ -8,11 +8,13 @@ public class CustomerMapper {
         if(request == null) {
             return null;
         }
+        System.out.println(request.email());
         return Customer.builder()
                         .id(request.id())
                         .firstName(request.firstName())
                         .lastName(request.lastName())
                         .address(request.address())
+                        .email(request.email())
                         .build();
     }
 
