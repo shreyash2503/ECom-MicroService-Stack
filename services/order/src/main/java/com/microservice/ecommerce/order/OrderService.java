@@ -8,13 +8,11 @@ import com.microservice.ecommerce.orderline.OrderLineRequest;
 import com.microservice.ecommerce.orderline.OrderLineService;
 import com.microservice.ecommerce.product.ProductClient;
 import com.microservice.ecommerce.product.PurchaseRequest;
-import jakarta.validation.Valid;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.aspectj.weaver.ast.Or;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -57,5 +55,13 @@ public class OrderService {
                 )
         );
         return order.getId();
+    }
+
+    public List<OrderResponse> findAll() {
+        return orderRepository.findAll().stream().map(orderMapper::fromOrder).toList();
+    }
+
+    public OrderResponse findById(Integer id) {
+        return orderMapper.fromOrder((orderRepository.findById(id)).orElseThrow(() -> new EntityNotFoundException("No order found with the provided id::" + id)));
     }
 }
