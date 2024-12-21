@@ -1,0 +1,27 @@
+spring:
+  data:
+    mongodb:
+      authentication-database: admin
+      database: notification
+      host: localhost
+      password: yash1234
+      port: 27017
+      username: yash
+  mail:
+    host: localhost
+    port: 1025
+    username: yash
+    password: yash1234
+    properties:
+      mail:
+        smtp:
+          trust: "*"
+        auth: true
+        starttls:
+          enabled: true
+        connectiontimeout: 5000
+        timeout: 3000
+        writetimeout: 5000
+server:
+  port: 8040
+
