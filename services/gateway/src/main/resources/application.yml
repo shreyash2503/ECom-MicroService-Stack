@@ -4,4 +4,10 @@ spring:
   application:
     name: gateway-service
 
+# Properties for zipkin if default values are not used
+#management:
+#  zipkin:
+#    tracing:
+#      endpoint:
+
 
