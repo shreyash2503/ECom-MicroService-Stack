@@ -1,6 +1,8 @@
-spring.application.name=discovery-service
-spring.config.import=optional:configserver:http://localhost:8888
-
+spring:
+  application:
+    name: discovery-service
+  config:
+    import: optional:configserver:http://localhost:8888
 #eureka.instance.hostname=localhost
 # This being the discovery server do not register with itself
 #eureka.client.register-with-eureka=false
